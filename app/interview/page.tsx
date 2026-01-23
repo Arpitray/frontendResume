@@ -270,15 +270,15 @@ export default function InterviewPage() {
 
             {/* Editorial Background - Clean Paper-like */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none bg-background">
-                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[150px] opacity-40"></div>
-                 {/* Thin architectural line */}
-                 <div className="absolute left-[8%] top-0 w-[1px] h-full bg-border/20 hidden lg:block"></div>
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[150px] opacity-40"></div>
+                {/* Thin architectural line */}
+                <div className="absolute left-[8%] top-0 w-[1px] h-full bg-border/20 hidden lg:block"></div>
             </div>
 
             <main className="flex-1 pt-32 pb-12 px-6 max-w-4xl mx-auto w-full relative z-10 animate-fade-in">
 
                 <div className="text-center space-y-6 mb-20">
-                     <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary/80 border-b border-primary/20 pb-1 inline-block">
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary/80 border-b border-primary/20 pb-1 inline-block">
                         Simulation Module
                     </span>
                     <h1 className="text-display font-medium text-foreground tracking-tight leading-[1]">
@@ -303,7 +303,7 @@ export default function InterviewPage() {
 
                         <label className="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-medium text-background bg-foreground rounded-full transition-all hover:opacity-90 cursor-pointer hover:shadow-lg hover:-translate-y-1">
                             <span className="relative flex items-center gap-3">
-                               <span>Choose PDF</span>
+                                <span>Choose PDF</span>
                             </span>
                             <input
                                 type="file"
@@ -366,9 +366,9 @@ export default function InterviewPage() {
                             <span className="relative flex items-center gap-3 z-10">
                                 <span>Start Session</span>
                             </span>
-                             <div className="absolute inset-0 bg-primary/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                            <div className="absolute inset-0 bg-primary/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         </button>
-                         <p className="mt-4 text-sm text-muted-foreground">Make sure your microphone is enabled</p>
+                        <p className="mt-4 text-sm text-muted-foreground">Make sure your microphone is enabled</p>
                     </div>
                 )}
 
@@ -439,7 +439,7 @@ export default function InterviewPage() {
                                         </>
                                     ) : (
                                         <>
-                                             <svg className="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                                            <svg className="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
                                             Start Mic
                                         </>
                                     )}
@@ -463,7 +463,7 @@ export default function InterviewPage() {
                                     {log.map((l, i) => (
                                         <div key={i} className="group relative pl-8 border-l-2 border-border/50 hover:border-primary/50 transition-colors pb-8 last:pb-0">
                                             <div className="absolute top-0 -left-[5px] w-2 h-2 rounded-full bg-border group-hover:bg-primary transition-colors"></div>
-                                            
+
                                             <div className="mb-4">
                                                 <p className="text-xs font-bold text-muted-foreground uppercase mb-2">Q{i + 1}</p>
                                                 <p className="font-serif text-lg text-foreground/90">{l.q}</p>

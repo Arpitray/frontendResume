@@ -79,7 +79,7 @@ export default function ChatWindow({ resumeId }: { resumeId: string }) {
             {/* Header */}
             <div className="px-8 py-5 bg-background/80 backdrop-blur-xl border-b border-border flex items-center justify-between z-20 sticky top-0">
                 <div className="flex items-center gap-4">
-                     <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-foreground font-serif font-bold italic border border-border">
+                    <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-foreground font-serif font-bold italic border border-border">
                         Ra
                     </div>
                     <div>
@@ -90,7 +90,7 @@ export default function ChatWindow({ resumeId }: { resumeId: string }) {
                     </div>
                 </div>
                 <div className="px-3 py-1 bg-secondary rounded-full text-[10px] font-mono font-medium text-muted-foreground tracking-wider uppercase">
-                   ID: {resumeId.slice(0, 6)}
+                    ID: {resumeId.slice(0, 6)}
                 </div>
             </div>
 
@@ -103,13 +103,13 @@ export default function ChatWindow({ resumeId }: { resumeId: string }) {
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] select-none">
                                 <span className="text-[20vw] font-bold tracking-tighter">AI</span>
                             </div>
-                            
+
                             <div className="relative z-10 space-y-8">
                                 <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary/80 border-b border-primary/20 pb-1">
                                     Consultation Mode
                                 </span>
                                 <h3 className="text-display text-4xl md:text-6xl font-medium text-foreground tracking-tight leading-none">
-                                    How can I <br/><span className="text-muted-foreground">assist you?</span>
+                                    How can I <br /><span className="text-muted-foreground">assist you?</span>
                                 </h3>
                                 <p className="max-w-md mx-auto text-lg text-muted-foreground font-light leading-relaxed">
                                     Ask me anything about your experience, skills, or how to improve your resume.
@@ -144,7 +144,7 @@ export default function ChatWindow({ resumeId }: { resumeId: string }) {
                             </div>
                         </div>
                     ))}
-                    
+
                     {loading && (
                         <div className="flex justify-start">
                             <div className="bg-card border border-border px-6 py-4 rounded-3xl rounded-bl-sm flex items-center gap-2">
@@ -185,7 +185,7 @@ export default function ChatWindow({ resumeId }: { resumeId: string }) {
                             Send
                         </button>
                     </div>
-                     <p className="text-center text-[9px] text-muted-foreground mt-4 uppercase tracking-[0.2em] opacity-40">AI Generated Content</p>
+                    <p className="text-center text-[9px] text-muted-foreground mt-4 uppercase tracking-[0.2em] opacity-40">AI Generated Content</p>
                 </div>
             </div>
         </div>

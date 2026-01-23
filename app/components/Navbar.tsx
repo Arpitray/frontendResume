@@ -48,7 +48,7 @@ export default function Navbar() {
                         {theme === "dark" ? "Light" : "Dark"}
                     </button>
                 )}
-                 <Link href="/signin" className="hidden lg:block text-xs font-bold tracking-[0.15em] uppercase bg-foreground text-background px-5 py-2 hover:bg-foreground/80 transition-colors">
+                <Link href="/signin" className="hidden lg:block text-xs font-bold tracking-[0.15em] uppercase bg-foreground text-background px-5 py-2 hover:bg-foreground/80 transition-colors">
                     Login
                 </Link>
             </div>

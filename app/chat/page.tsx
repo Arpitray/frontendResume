@@ -12,7 +12,7 @@ function ChatContent() {
 
     if (!resumeId) {
         return (
-             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 animate-fade-in">
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 animate-fade-in">
                 <div className="w-16 h-16 border border-foreground/10 flex items-center justify-center">
                     <span className="text-2xl">!</span>
                 </div>

@@ -276,7 +276,7 @@ export default function MatchPage() {
         <div className="min-h-screen bg-background text-foreground pt-32 pb-20">
             <Navbar />
             <div className="max-w-5xl mx-auto px-6">
-                
+
                 {/* Header Section - Editorial */}
                 <div className="flex flex-col items-center text-center mb-20 space-y-8 animate-fade-in relative z-10">
                     <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary/80 border-b border-primary/20 pb-1">
@@ -292,7 +292,7 @@ export default function MatchPage() {
 
                 {/* Input Section - Split View */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    
+
                     {/* Resume Card */}
                     <div className={`p-8 bg-background border border-border/40 transition-all duration-500 relative group overflow-hidden ${resumeId ? 'border-primary/50' : 'hover:border-primary/30'}`}>
                         <div className={`absolute top-0 left-0 w-[2px] h-0 bg-primary transition-all duration-500 ${resumeId ? 'h-full' : 'group-hover:h-full'}`}></div>
@@ -301,15 +301,15 @@ export default function MatchPage() {
                                 <span className={`flex h-2 w-2 rounded-full ${resumeId ? 'bg-primary' : 'bg-muted-foreground/30'}`}></span>
                                 Resume
                             </h3>
-                             {resumeId && (
+                            {resumeId && (
                                 <span className="text-xs font-mono text-muted-foreground bg-secondary px-2 py-1 rounded">UPLOADED</span>
-                             )}
+                            )}
                         </div>
 
                         {resumeId ? (
                             <div className="text-center py-8">
                                 <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mx-auto mb-4">
-                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                 </div>
                                 <p className="text-sm text-foreground font-medium mb-1">Resume Analysis Ready</p>
                                 <p className="text-xs text-muted-foreground mb-6 font-mono">ID: {resumeId.slice(0, 8)}...</p>
@@ -354,14 +354,14 @@ export default function MatchPage() {
                     {/* Job Card */}
                     <div className={`p-8 bg-background border border-border/40 transition-all duration-500 relative group overflow-hidden ${currentJobId ? 'border-primary/50' : 'hover:border-primary/30'}`}>
                         <div className={`absolute top-0 right-0 w-[2px] h-0 bg-primary transition-all duration-500 ${currentJobId ? 'h-full' : 'group-hover:h-full'}`}></div>
-                         <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center justify-between mb-8">
                             <h3 className="text-sm tracking-[0.2em] uppercase font-bold text-foreground/80 flex items-center gap-3">
                                 <span className={`flex h-2 w-2 rounded-full ${currentJobId ? 'bg-primary' : 'bg-muted-foreground/30'}`}></span>
                                 Job Description
                             </h3>
                             {currentJobId && (
                                 <span className="text-xs font-mono text-muted-foreground bg-secondary px-2 py-1 rounded">Active</span>
-                             )}
+                            )}
                         </div>
 
                         {!currentJobId ? (
@@ -382,9 +382,9 @@ export default function MatchPage() {
                                 </button>
                             </div>
                         ) : (
-                             <div className="text-center py-8">
+                            <div className="text-center py-8">
                                 <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mx-auto mb-4">
-                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                                 </div>
                                 <p className="text-sm text-foreground font-medium mb-1">Context Set</p>
                                 <p className="text-xs text-muted-foreground mb-6">ready for analysis</p>
@@ -413,11 +413,11 @@ export default function MatchPage() {
                             disabled={loading}
                             className="group relative px-10 py-5 bg-foreground text-background rounded-full font-medium text-lg overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                             <span className="relative z-10 flex items-center gap-2">
+                            <span className="relative z-10 flex items-center gap-2">
                                 {loading ? "Analyzing..." : "Begin Analysis"}
                                 {!loading && <span className="group-hover:translate-x-1 transition-transform">→</span>}
-                             </span>
-                             <div className="absolute inset-0 bg-primary/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                            </span>
+                            <div className="absolute inset-0 bg-primary/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         </button>
                     </div>
                 )}
@@ -425,13 +425,13 @@ export default function MatchPage() {
                 {loading && (
                     <div className="flex flex-col items-center justify-center py-20 space-y-4">
                         <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                         <p className="text-sm font-mono text-muted-foreground tracking-widest uppercase">Computing Match</p>
+                        <p className="text-sm font-mono text-muted-foreground tracking-widest uppercase">Computing Match</p>
                     </div>
                 )}
 
                 {data && (
                     <div className="animate-fade-in space-y-12">
-                        
+
                         {/* Tab Navigation - Minimal */}
                         <div className="flex justify-center mb-8">
                             <div className="flex items-center gap-1 p-1 bg-secondary/50 rounded-full border border-border">
@@ -440,8 +440,8 @@ export default function MatchPage() {
                                         key={t}
                                         onClick={() => switchTab(t as any)}
                                         className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === t
-                                                ? 'bg-foreground text-background shadow-md'
-                                                : 'text-muted-foreground hover:text-foreground'
+                                            ? 'bg-foreground text-background shadow-md'
+                                            : 'text-muted-foreground hover:text-foreground'
                                             } capitalize`}
                                     >
                                         {t}
@@ -457,8 +457,8 @@ export default function MatchPage() {
                                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12 relative z-10">
                                         <div className="text-left space-y-2">
                                             <div className="flex items-center gap-3">
-                                               <div className="h-[1px] w-12 bg-primary"></div>
-                                               <p className="text-xs font-bold tracking-[0.2em] uppercase text-primary">Compatibility Index</p>
+                                                <div className="h-[1px] w-12 bg-primary"></div>
+                                                <p className="text-xs font-bold tracking-[0.2em] uppercase text-primary">Compatibility Index</p>
                                             </div>
                                             <h2 className="text-[8rem] md:text-[10rem] leading-[0.8] font-medium text-foreground tracking-tighter -ml-1">
                                                 {Math.round(data.match_score_percent)}
@@ -477,11 +477,11 @@ export default function MatchPage() {
                                                         <span className="text-muted-foreground">Relevance</span>
                                                         <span className="font-bold">{data.resume_chunks} pts</span>
                                                     </div>
-                                                     <div className="w-full bg-foreground/5 h-[2px]">
+                                                    <div className="w-full bg-foreground/5 h-[2px]">
                                                         <div className="bg-foreground h-full transition-all duration-1000 ease-out" style={{ width: `${Math.min(data.resume_chunks * 10, 100)}%` }}></div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="space-y-2">
                                                     <div className="flex justify-between text-xs tracking-widest uppercase">
                                                         <span className="text-muted-foreground">Requirements</span>
@@ -494,28 +494,28 @@ export default function MatchPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/30 rounded-full blur-[80px] -z-10"></div>
                                 </div>
 
                                 {/* Detailed Matches - List View */}
                                 <div className="space-y-6 mt-12">
                                     <h3 className="text-xl font-medium text-foreground">Alignment Breakdown</h3>
-                                    
+
                                     <div className="divide-y divide-border border border-border rounded-2xl bg-card overflow-hidden">
                                         {data.top_matches.map((m: any, i: number) => (
                                             <div key={i} className="p-8 hover:bg-secondary/30 transition-colors group">
                                                 <div className="flex items-start justify-between mb-4">
                                                     <div className="flex items-center gap-3">
-                                                       <span className="flex items-center justify-center w-6 h-6 rounded-full border border-border text-xs font-mono text-muted-foreground">
+                                                        <span className="flex items-center justify-center w-6 h-6 rounded-full border border-border text-xs font-mono text-muted-foreground">
                                                             {i + 1}
-                                                       </span>
-                                                       <span className="text-xs font-mono text-primary uppercase tracking-wider">
-                                                           {(m.score * 100).toFixed(0)}% Relevance
-                                                       </span>
+                                                        </span>
+                                                        <span className="text-xs font-mono text-primary uppercase tracking-wider">
+                                                            {(m.score * 100).toFixed(0)}% Relevance
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                     <div>
                                                         <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase">Experience</p>
@@ -578,17 +578,17 @@ export default function MatchPage() {
                                             {/* Improvements Grid */}
                                             {feedback.suggestions && feedback.suggestions.length > 0 && (
                                                 <div className="grid grid-cols-1 gap-6">
-                                                     <h4 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-2 pl-1 border-l-2 border-primary">Refinements</h4>
+                                                    <h4 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-2 pl-1 border-l-2 border-primary">Refinements</h4>
                                                     {feedback.suggestions.map((suggestion: any, idx: number) => (
                                                         <div key={idx} className="p-6 bg-secondary/20 rounded-2xl border border-border/50 hover:border-primary/20 transition-all">
                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                                                                 <div className="space-y-1">
-                                                                     <span className="text-xs font-semibold text-red-500/80 uppercase tracking-wide">Current</span>
-                                                                     <p className="text-sm text-foreground/70 font-light italic">"{suggestion.before}"</p>
+                                                                    <span className="text-xs font-semibold text-red-500/80 uppercase tracking-wide">Current</span>
+                                                                    <p className="text-sm text-foreground/70 font-light italic">"{suggestion.before}"</p>
                                                                 </div>
                                                                 <div className="space-y-1">
-                                                                     <span className="text-xs font-semibold text-primary uppercase tracking-wide">Optimization</span>
-                                                                     <p className="text-sm text-foreground font-medium">"{suggestion.after}"</p>
+                                                                    <span className="text-xs font-semibold text-primary uppercase tracking-wide">Optimization</span>
+                                                                    <p className="text-sm text-foreground font-medium">"{suggestion.after}"</p>
                                                                 </div>
                                                             </div>
                                                             <div className="mt-4 pt-4 border-t border-border/50">
@@ -604,7 +604,7 @@ export default function MatchPage() {
                             })() : null
                         )}
 
-                         {activeTab === 'roadmap' && (
+                        {activeTab === 'roadmap' && (
                             loadingRoadmap ? (
                                 <div className="text-center py-24">
                                     <div className="inline-block animate-bounce text-primary mb-4 text-2xl">↓</div>
@@ -624,19 +624,19 @@ export default function MatchPage() {
                                 }
 
                                 const roadmapItems = learningPath.roadmap || learningPath.phases || (Array.isArray(learningPath) ? learningPath : null);
-                                
+
                                 if (!roadmapItems || roadmapItems.length === 0) return <div className="text-center py-12 text-muted-foreground">No data.</div>;
 
                                 return (
                                     <div className="max-w-3xl mx-auto space-y-12 animate-fade-in relative">
                                         <div className="absolute left-8 top-8 bottom-8 w-px bg-border"></div>
-                                        
+
                                         {roadmapItems.map((item: any, idx: number) => {
-                                             const dayLabel = item.day ? `Day ${item.day}` : item.phase_name || `Step ${idx + 1}`;
-                                              return (
+                                            const dayLabel = item.day ? `Day ${item.day}` : item.phase_name || `Step ${idx + 1}`;
+                                            return (
                                                 <div key={idx} className="relative pl-20">
                                                     <div className="absolute left-6 top-0 w-4 h-4 -ml-2 rounded-full border-2 border-primary bg-background z-10"></div>
-                                                    
+
                                                     <div className="mb-6">
                                                         <span className="text-xs font-mono text-primary uppercase tracking-wider mb-1 block">{dayLabel}</span>
                                                         <h3 className="text-xl font-medium text-foreground mb-2">{item.goal || item.description}</h3>
@@ -645,17 +645,17 @@ export default function MatchPage() {
 
                                                     <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
                                                         {(item.what_to_learn || item.skills) && (
-                                                             <div className="mb-4">
+                                                            <div className="mb-4">
                                                                 <ul className="space-y-1">
-                                                                     {(item.what_to_learn || item.skills).map((k: string, i: number) => (
-                                                                         <li key={i} className="text-sm text-foreground/80 flex items-start gap-2">
+                                                                    {(item.what_to_learn || item.skills).map((k: string, i: number) => (
+                                                                        <li key={i} className="text-sm text-foreground/80 flex items-start gap-2">
                                                                             <span className="text-primary mt-1.5 text-[0.6rem]">●</span> {k}
-                                                                         </li>
-                                                                     ))}
+                                                                        </li>
+                                                                    ))}
                                                                 </ul>
-                                                             </div>
+                                                            </div>
                                                         )}
-                                                        
+
                                                         {(item.mini_task || item.task) && (
                                                             <div className="mt-4 pt-4 border-t border-border/50">
                                                                 <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Action Item</p>
@@ -664,7 +664,7 @@ export default function MatchPage() {
                                                         )}
                                                     </div>
                                                 </div>
-                                              )
+                                            )
                                         })}
                                     </div>
                                 )
@@ -686,12 +686,12 @@ export default function MatchPage() {
 
 
                         <div className="flex justify-center pt-16">
-                             <button
+                            <button
                                 onClick={() => router.push("/chat?resume_id=" + resumeId)}
                                 className="px-8 py-3 bg-secondary text-foreground hover:bg-muted transition-colors rounded-full font-medium"
-                             >
+                            >
                                 Start Chat Session →
-                             </button>
+                            </button>
                         </div>
 
                     </div>
