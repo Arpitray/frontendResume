@@ -4,6 +4,7 @@ import { useState } from "react";
 import { matchResumeFast, getAiCoach, getRoadmap, uploadJob, uploadResume } from "@/src/lib/api";
 import { useAppStore } from "@/src/store/appStore";
 import { useRouter } from "next/navigation";
+import Navbar from "@/app/components/Navbar";
 
 // Helper to clean bad control characters from JSON strings
 function cleanJsonString(str: string): string {
@@ -272,47 +273,70 @@ export default function MatchPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background text-foreground">
-            <div className="max-w-6xl mx-auto px-8 py-12">
-                <h1 className="text-4xl md:text-5xl font-bold mb-3 text-center">
-                    AI Resume ↔ Job Match
-                </h1>
-                <p className="text-muted-foreground text-center mb-12 text-lg">
-                    Analyze how well your resume matches a job description
-                </p>
+        <div className="min-h-screen bg-background text-foreground pt-32 pb-20">
+            <Navbar />
+            <div className="max-w-5xl mx-auto px-6">
+                
+                {/* Header Section - Editorial */}
+                <div className="flex flex-col items-center text-center mb-20 space-y-8 animate-fade-in relative z-10">
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary/80 border-b border-primary/20 pb-1">
+                        Intelligence Module 01
+                    </span>
+                    <h1 className="text-display font-medium text-foreground tracking-tight max-w-3xl leading-[1.1]">
+                        The Alignment Report
+                    </h1>
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto font-light leading-relaxed">
+                        Precision matching between your professional narrative and market requirements.
+                    </p>
+                </div>
 
-                {/* Resume Upload */}
-                <div className="mb-8 p-6 bg-card border border-border rounded-2xl">
-                    <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <span className={`w-3 h-3 rounded-full ${resumeId ? 'bg-green-500' : 'bg-yellow-500'}`}></span>
-                        Resume Upload
-                    </h3>
-                    {resumeId ? (
-                        <div>
-                            <p className="text-muted-foreground mb-2">Resume uploaded ✓ (ID: {resumeId.slice(0, 8)}...)</p>
-                            <button
-                                onClick={() => setResumeId(null!)}
-                                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-muted transition-all"
-                            >
-                                Upload Different Resume
-                            </button>
+                {/* Input Section - Split View */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    
+                    {/* Resume Card */}
+                    <div className={`p-8 bg-background border border-border/40 transition-all duration-500 relative group overflow-hidden ${resumeId ? 'border-primary/50' : 'hover:border-primary/30'}`}>
+                        <div className={`absolute top-0 left-0 w-[2px] h-0 bg-primary transition-all duration-500 ${resumeId ? 'h-full' : 'group-hover:h-full'}`}></div>
+                        <div className="flex items-center justify-between mb-8">
+                            <h3 className="text-sm tracking-[0.2em] uppercase font-bold text-foreground/80 flex items-center gap-3">
+                                <span className={`flex h-2 w-2 rounded-full ${resumeId ? 'bg-primary' : 'bg-muted-foreground/30'}`}></span>
+                                Resume
+                            </h3>
+                             {resumeId && (
+                                <span className="text-xs font-mono text-muted-foreground bg-secondary px-2 py-1 rounded">UPLOADED</span>
+                             )}
                         </div>
-                    ) : (
-                        <div>
-                            <label className="relative flex flex-col items-center justify-center w-full h-48 rounded-2xl cursor-pointer transition-all duration-300 ease-out group bg-white/50 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 border-2 border-dashed border-slate-300 dark:border-slate-500 hover:border-indigo-400 dark:hover:border-indigo-400">
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-6">
+
+                        {resumeId ? (
+                            <div className="text-center py-8">
+                                <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mx-auto mb-4">
+                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <p className="text-sm text-foreground font-medium mb-1">Resume Analysis Ready</p>
+                                <p className="text-xs text-muted-foreground mb-6 font-mono">ID: {resumeId.slice(0, 8)}...</p>
+                                <button
+                                    onClick={() => setResumeId(null!)}
+                                    className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4"
+                                >
+                                    Replace File
+                                </button>
+                            </div>
+                        ) : (
+                            <label className="flex flex-col items-center justify-center w-full h-48 border border-dashed border-border rounded-2xl cursor-pointer hover:bg-secondary/50 transition-colors group">
+                                <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
                                     {uploadingResume ? (
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div className="w-12 h-12 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin"></div>
-                                            <p className="text-sm font-semibold text-foreground">Processing...</p>
+                                        <div className="flex flex-col items-center gap-3">
+                                            <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+                                            <p className="text-xs font-medium text-muted-foreground">Uploading...</p>
                                         </div>
                                     ) : (
                                         <>
-                                            <svg className="w-12 h-12 mb-3 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                            </svg>
-                                            <h4 className="mb-2 text-lg font-bold text-foreground">Upload your Resume</h4>
-                                            <p className="text-sm text-muted-foreground">Click to browse or drag and drop PDF</p>
+                                            <div className="w-10 h-10 mb-3 rounded-full bg-secondary flex items-center justify-center text-muted-foreground group-hover:text-primary transition-colors">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                                </svg>
+                                            </div>
+                                            <p className="text-sm font-medium text-foreground mb-1">Upload PDF</p>
+                                            <p className="text-xs text-muted-foreground">Drag & drop or click</p>
                                         </>
                                     )}
                                 </div>
@@ -324,263 +348,196 @@ export default function MatchPage() {
                                     disabled={uploadingResume}
                                 />
                             </label>
+                        )}
+                    </div>
+
+                    {/* Job Card */}
+                    <div className={`p-8 bg-background border border-border/40 transition-all duration-500 relative group overflow-hidden ${currentJobId ? 'border-primary/50' : 'hover:border-primary/30'}`}>
+                        <div className={`absolute top-0 right-0 w-[2px] h-0 bg-primary transition-all duration-500 ${currentJobId ? 'h-full' : 'group-hover:h-full'}`}></div>
+                         <div className="flex items-center justify-between mb-8">
+                            <h3 className="text-sm tracking-[0.2em] uppercase font-bold text-foreground/80 flex items-center gap-3">
+                                <span className={`flex h-2 w-2 rounded-full ${currentJobId ? 'bg-primary' : 'bg-muted-foreground/30'}`}></span>
+                                Job Description
+                            </h3>
+                            {currentJobId && (
+                                <span className="text-xs font-mono text-muted-foreground bg-secondary px-2 py-1 rounded">Active</span>
+                             )}
                         </div>
-                    )}
+
+                        {!currentJobId ? (
+                            <div className="space-y-4">
+                                <textarea
+                                    className="w-full h-32 p-4 bg-secondary/30 border border-border rounded-xl resize-none focus:outline-none focus:ring-1 focus:ring-primary/50 text-sm placeholder:text-muted-foreground/50 transition-all font-light"
+                                    placeholder="Paste job details here (requirements, role overview)..."
+                                    value={jobDescription}
+                                    onChange={(e) => setJobDescription(e.target.value)}
+                                    disabled={uploadingJob}
+                                />
+                                <button
+                                    onClick={handleJobUpload}
+                                    disabled={uploadingJob || !jobDescription.trim()}
+                                    className="w-full py-3 bg-foreground text-background rounded-xl text-sm font-medium hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                >
+                                    {uploadingJob ? "Processing..." : "Set Context"}
+                                </button>
+                            </div>
+                        ) : (
+                             <div className="text-center py-8">
+                                <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mx-auto mb-4">
+                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                </div>
+                                <p className="text-sm text-foreground font-medium mb-1">Context Set</p>
+                                <p className="text-xs text-muted-foreground mb-6">ready for analysis</p>
+                                <button
+                                    onClick={() => {
+                                        setCurrentJobId(null);
+                                        setJobDescription("");
+                                        setData(null);
+                                        setCoachData(null);
+                                        setRoadmapData(null);
+                                    }}
+                                    className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4"
+                                >
+                                    Change Job
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
-                {/* Job Description Upload */}
-                <div className="mb-8 p-6 bg-card border border-border rounded-2xl">
-                    <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                        <span className={`w-3 h-3 rounded-full ${currentJobId ? 'bg-green-500' : 'bg-yellow-500'}`}></span>
-                        Job Description
-                    </h3>
-
-                    {!currentJobId ? (
-                        <>
-                            <textarea
-                                className="w-full h-48 p-4 bg-background border border-border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-foreground placeholder:text-muted-foreground/70"
-                                placeholder="Paste the job description here...&#10;&#10;Include requirements, responsibilities, qualifications, and any other relevant details."
-                                value={jobDescription}
-                                onChange={(e) => setJobDescription(e.target.value)}
-                                disabled={uploadingJob}
-                            />
-                            <button
-                                onClick={handleJobUpload}
-                                disabled={uploadingJob || !jobDescription.trim()}
-                                className="mt-4 px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-indigo-500/25"
-                            >
-                                {uploadingJob ? "Processing..." : "Upload Job Description"}
-                            </button>
-                        </>
-                    ) : (
-                        <div>
-                            <p className="text-muted-foreground mb-2">Job description uploaded ✓</p>
-                            <button
-                                onClick={() => {
-                                    setCurrentJobId(null);
-                                    setJobDescription("");
-                                    setData(null);
-                                    setCoachData(null);
-                                    setRoadmapData(null);
-                                }}
-                                className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-muted transition-all"
-                            >
-                                Upload Different Job
-                            </button>
-                        </div>
-                    )}
-                </div>
-
-                {/* Run Match Button */}
+                {/* Primary Action */}
                 {resumeId && currentJobId && !data && (
-                    <div className="text-center mb-8">
+                    <div className="text-center mb-16 animate-fade-in">
                         <button
                             onClick={runMatch}
                             disabled={loading}
-                            className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold text-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                            className="group relative px-10 py-5 bg-foreground text-background rounded-full font-medium text-lg overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {loading ? "Analyzing Match..." : "Run AI Match Analysis"}
+                             <span className="relative z-10 flex items-center gap-2">
+                                {loading ? "Analyzing..." : "Begin Analysis"}
+                                {!loading && <span className="group-hover:translate-x-1 transition-transform">→</span>}
+                             </span>
+                             <div className="absolute inset-0 bg-primary/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         </button>
                     </div>
                 )}
 
                 {loading && (
-                    <div className="text-center py-12">
-                        <div className="inline-block w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mb-4"></div>
-                        <p className="text-muted-foreground">AI analyzing match...</p>
+                    <div className="flex flex-col items-center justify-center py-20 space-y-4">
+                        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                         <p className="text-sm font-mono text-muted-foreground tracking-widest uppercase">Computing Match</p>
                     </div>
                 )}
 
                 {data && (
-                    <div className="space-y-8">
-                        {/* Tabs */}
+                    <div className="animate-fade-in space-y-12">
+                        
+                        {/* Tab Navigation - Minimal */}
                         <div className="flex justify-center mb-8">
-                            <div className="bg-muted p-1 rounded-xl inline-flex">
-                                <button
-                                    onClick={() => switchTab('analysis')}
-                                    className={`px-6 py-2 rounded-lg font-medium transition-all ${activeTab === 'analysis'
-                                            ? 'bg-background text-foreground shadow-sm'
-                                            : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                >
-                                    Analysis
-                                </button>
-                                <button
-                                    onClick={() => switchTab('coach')}
-                                    className={`px-6 py-2 rounded-lg font-medium transition-all ${activeTab === 'coach'
-                                            ? 'bg-background text-foreground shadow-sm'
-                                            : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                >
-                                    AI Coach
-                                </button>
-                                <button
-                                    onClick={() => switchTab('roadmap')}
-                                    className={`px-6 py-2 rounded-lg font-medium transition-all ${activeTab === 'roadmap'
-                                            ? 'bg-background text-foreground shadow-sm'
-                                            : 'text-muted-foreground hover:text-foreground'
-                                        }`}
-                                >
-                                    Roadmap
-                                </button>
+                            <div className="flex items-center gap-1 p-1 bg-secondary/50 rounded-full border border-border">
+                                {['analysis', 'coach', 'roadmap'].map((t) => (
+                                    <button
+                                        key={t}
+                                        onClick={() => switchTab(t as any)}
+                                        className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === t
+                                                ? 'bg-foreground text-background shadow-md'
+                                                : 'text-muted-foreground hover:text-foreground'
+                                            } capitalize`}
+                                    >
+                                        {t}
+                                    </button>
+                                ))}
                             </div>
                         </div>
 
                         {activeTab === 'analysis' && (
                             <>
-                                {/* Match Score Card */}
-                                <div className="relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 dark:from-indigo-500/10 dark:via-purple-500/10 dark:to-pink-500/10"></div>
-                                    <div className="relative p-12 bg-card/50 backdrop-blur-sm border border-border rounded-3xl">
-                                        <div className="max-w-4xl mx-auto">
-                                            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                                                {/* Score Display */}
-                                                <div className="flex-1 text-center md:text-left">
-                                                    <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">Match Analysis</p>
-                                                    <div className="flex items-baseline gap-3">
-                                                        <h2 className="text-7xl md:text-8xl font-bold tracking-tight">
-                                                            <span className="bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-                                                                {Math.round(data.match_score_percent)}
-                                                            </span>
-                                                        </h2>
-                                                        <span className="text-4xl font-semibold text-muted-foreground">%</span>
-                                                    </div>
-                                                    <p className="text-lg font-medium text-muted-foreground mt-3">
-                                                        {data.match_score_percent >= 80 ? "Excellent fit for this role" :
-                                                            data.match_score_percent >= 60 ? "Strong candidate profile" :
-                                                                data.match_score_percent >= 40 ? "Potential with development" : "Consider skill gaps"}
-                                                    </p>
-                                                </div>
+                                {/* Match Score Section - High Fashion Editorial Style */}
+                                <div className="p-8 md:p-12 editorial-glass rounded-none md:rounded-3xl border border-border/10 relative overflow-hidden transition-all duration-700 animate-in fade-in slide-in-from-bottom-4">
+                                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12 relative z-10">
+                                        <div className="text-left space-y-2">
+                                            <div className="flex items-center gap-3">
+                                               <div className="h-[1px] w-12 bg-primary"></div>
+                                               <p className="text-xs font-bold tracking-[0.2em] uppercase text-primary">Compatibility Index</p>
+                                            </div>
+                                            <h2 className="text-[8rem] md:text-[10rem] leading-[0.8] font-medium text-foreground tracking-tighter -ml-1">
+                                                {Math.round(data.match_score_percent)}
+                                            </h2>
+                                            <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-md pt-4 border-t border-border/30 mt-4 leading-relaxed">
+                                                {data.match_score_percent >= 80 ? "An exceptional alignment." :
+                                                    data.match_score_percent >= 60 ? "Strong profile with potential." :
+                                                        data.match_score_percent >= 40 ? "Foundational match." : "Misalignment detected."}
+                                            </p>
+                                        </div>
 
-                                                {/* Progress Bar */}
-                                                <div className="flex-1 w-full md:w-auto">
-                                                    <div className="space-y-3">
-                                                        <div className="flex justify-between text-sm font-medium">
-                                                            <span className="text-muted-foreground">Overall Compatibility</span>
-                                                            <span className="text-foreground">{Math.round(data.match_score_percent)}%</span>
-                                                        </div>
-                                                        <div className="h-3 bg-secondary rounded-full overflow-hidden">
-                                                            <div
-                                                                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-1000 ease-out"
-                                                                style={{ width: `${data.match_score_percent}%` }}
-                                                            ></div>
-                                                        </div>
-                                                        <div className="flex justify-between text-xs text-muted-foreground">
-                                                            <span>Resume Analysis</span>
-                                                            <span>{data.resume_chunks} sections</span>
-                                                        </div>
+                                        <div className="flex-1 w-full max-w-md bg-white/50 dark:bg-black/20 p-8 rounded-xl backdrop-blur-sm border border-border/5">
+                                            <div className="space-y-8">
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between text-xs tracking-widest uppercase">
+                                                        <span className="text-muted-foreground">Relevance</span>
+                                                        <span className="font-bold">{data.resume_chunks} pts</span>
+                                                    </div>
+                                                     <div className="w-full bg-foreground/5 h-[2px]">
+                                                        <div className="bg-foreground h-full transition-all duration-1000 ease-out" style={{ width: `${Math.min(data.resume_chunks * 10, 100)}%` }}></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between text-xs tracking-widest uppercase">
+                                                        <span className="text-muted-foreground">Requirements</span>
+                                                        <span className="font-bold">{data.top_matches.length} matches</span>
+                                                    </div>
+                                                    <div className="w-full bg-foreground/5 h-[2px]">
+                                                        <div className="bg-primary h-full transition-all duration-1000 ease-out" style={{ width: `${(data.top_matches.length / Math.max(data.job_chunks, 1)) * 100}%` }}></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/30 rounded-full blur-[80px] -z-10"></div>
                                 </div>
 
-                                {/* Analysis Details */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="p-6 bg-card border border-border rounded-2xl hover:border-indigo-500/50 transition-all group">
-                                        <div className="flex items-center justify-between mb-4">
-                                            <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Resume</h3>
-                                            <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center group-hover:bg-indigo-500/20 transition-all">
-                                                <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <p className="text-3xl font-bold text-foreground">{data.resume_chunks}</p>
-                                        <p className="text-sm text-muted-foreground mt-1">Sections analyzed</p>
-                                    </div>
-                                    <div className="p-6 bg-card border border-border rounded-2xl hover:border-purple-500/50 transition-all group">
-                                        <div className="flex items-center justify-between mb-4">
-                                            <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Job Role</h3>
-                                            <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-all">
-                                                <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <p className="text-3xl font-bold text-foreground">{data.job_chunks}</p>
-                                        <p className="text-sm text-muted-foreground mt-1">Requirements checked</p>
-                                    </div>
-                                    <div className="p-6 bg-card border border-border rounded-2xl hover:border-pink-500/50 transition-all group">
-                                        <div className="flex items-center justify-between mb-4">
-                                            <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Matches</h3>
-                                            <div className="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center group-hover:bg-pink-500/20 transition-all">
-                                                <svg className="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <p className="text-3xl font-bold text-foreground">{data.top_matches.length}</p>
-                                        <p className="text-sm text-muted-foreground mt-1">Top alignments found</p>
-                                    </div>
-                                </div>
-
-                                {/* Top Matches */}
-                                <div className="space-y-4">
-                                    <div className="flex items-center justify-between mb-6">
-                                        <h2 className="text-2xl font-bold text-foreground">Skill Alignments</h2>
-                                        <span className="text-sm text-muted-foreground">Ranked by relevance</span>
-                                    </div>
-
-                                    <div className="space-y-4">
+                                {/* Detailed Matches - List View */}
+                                <div className="space-y-6 mt-12">
+                                    <h3 className="text-xl font-medium text-foreground">Alignment Breakdown</h3>
+                                    
+                                    <div className="divide-y divide-border border border-border rounded-2xl bg-card overflow-hidden">
                                         {data.top_matches.map((m: any, i: number) => (
-                                            <div key={i} className="group relative">
-                                                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                                <div className="relative p-6 bg-card border border-border rounded-2xl hover:border-border/80 transition-all">
-                                                    {/* Header */}
-                                                    <div className="flex items-start justify-between mb-6">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
-                                                                {i + 1}
-                                                            </div>
-                                                            <div>
-                                                                <p className="text-sm font-medium text-muted-foreground">Alignment Score</p>
-                                                                <p className="text-2xl font-bold text-foreground">{(m.score * 100).toFixed(0)}%</p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="px-3 py-1 bg-secondary rounded-full">
-                                                            <span className="text-xs font-medium text-foreground">Match #{i + 1}</span>
-                                                        </div>
+                                            <div key={i} className="p-8 hover:bg-secondary/30 transition-colors group">
+                                                <div className="flex items-start justify-between mb-4">
+                                                    <div className="flex items-center gap-3">
+                                                       <span className="flex items-center justify-center w-6 h-6 rounded-full border border-border text-xs font-mono text-muted-foreground">
+                                                            {i + 1}
+                                                       </span>
+                                                       <span className="text-xs font-mono text-primary uppercase tracking-wider">
+                                                           {(m.score * 100).toFixed(0)}% Relevance
+                                                       </span>
                                                     </div>
-
-                                                    {/* Content Grid */}
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                        <div className="space-y-2">
-                                                            <div className="flex items-center gap-2 mb-3">
-                                                                <div className="w-1 h-4 bg-indigo-500 rounded-full"></div>
-                                                                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Your Experience</p>
-                                                            </div>
-                                                            <p className="text-sm text-foreground leading-relaxed">
-                                                                {m.resume_chunk}
-                                                            </p>
-                                                        </div>
-
-                                                        <div className="space-y-2">
-                                                            <div className="flex items-center gap-2 mb-3">
-                                                                <div className="w-1 h-4 bg-purple-500 rounded-full"></div>
-                                                                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Role Requirement</p>
-                                                            </div>
-                                                            <p className="text-sm text-foreground leading-relaxed">
-                                                                {m.job_match}
-                                                            </p>
-                                                        </div>
+                                                </div>
+                                                
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                                    <div>
+                                                        <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase">Experience</p>
+                                                        <p className="text-sm text-foreground/80 leading-relaxed font-light">{m.resume_chunk}</p>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase">Requirement</p>
+                                                        <p className="text-sm text-foreground/80 leading-relaxed font-light">{m.job_match}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-
                             </>
                         )}
 
                         {activeTab === 'coach' && (
                             loadingCoach ? (
-                                <div className="flex flex-col items-center justify-center py-20">
-                                    <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin mb-6"></div>
-                                    <h3 className="text-xl font-semibold text-foreground">Consulting AI Coach...</h3>
-                                    <p className="text-muted-foreground mt-2">Analyzing your resume against industry standards</p>
+                                <div className="text-center py-24">
+                                    <div className="inline-block animate-pulse text-primary mb-4 text-2xl">✦</div>
+                                    <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest">Consulting Expert AI...</p>
                                 </div>
                             ) : coachData && coachData.ai_feedback ? (() => {
                                 let feedback;
@@ -591,100 +548,71 @@ export default function MatchPage() {
                                         feedback = coachData.ai_feedback;
                                     }
                                 } catch (e) {
-                                    console.error("Failed to parse AI feedback JSON:", e);
-                                    return (
-                                        <div className="mt-12 p-8 bg-card border border-border rounded-2xl shadow-lg">
-                                            <div className="text-foreground/90 whitespace-pre-wrap leading-relaxed font-mono text-sm bg-muted/30 p-4 rounded-lg">
-                                                {typeof coachData.ai_feedback === 'string' ? coachData.ai_feedback.replace(/```json/g, '').replace(/```/g, '') : "Feedback available but could not be parsed."}
-                                            </div>
-                                        </div>
-                                    );
+                                    return <div className="p-8 text-center text-muted-foreground">Unable to render detailed feedback.</div>;
                                 }
 
                                 return (
-                                    <div className="mt-8 p-8 bg-card border border-border rounded-2xl shadow-lg">
-                                        <div className="flex items-center gap-3 mb-6">
-                                            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                                                <span className="text-white text-xl">✨</span>
-                                            </div>
-                                            <div>
-                                                <h2 className="text-2xl font-bold text-foreground">AI Resume Coach</h2>
-                                                <p className="text-sm text-muted-foreground">Personalized recommendations for your career growth</p>
-                                            </div>
-                                        </div>
-
-                                        {/* Missing Skills Section */}
-                                        {feedback.missing_skills && feedback.missing_skills.length > 0 && (
-                                            <div className="mb-8">
-                                                <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                                                    <span className="text-amber-500">⚠️</span>
-                                                    Skills to Highlight
-                                                </h3>
-                                                <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl p-4">
-                                                    <ul className="space-y-2">
-                                                        {feedback.missing_skills.map((skill: string, idx: number) => (
-                                                            <li key={idx} className="flex items-start gap-2 text-foreground/80">
-                                                                <span className="text-amber-600 dark:text-amber-400 mt-0.5">•</span>
-                                                                <span>{skill}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
+                                    <div className="space-y-8 animate-fade-in">
+                                        <div className="p-8 bg-card border border-border rounded-3xl relative">
+                                            <div className="flex items-center gap-3 mb-8">
+                                                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary">
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                                                 </div>
+                                                <h3 className="text-lg font-medium text-foreground">Strategic Feedback</h3>
                                             </div>
-                                        )}
 
-                                        {/* Suggestions Section */}
-                                        {feedback.suggestions && feedback.suggestions.length > 0 && (
-                                            <div>
-                                                <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                                                    <span className="text-green-500">💡</span>
-                                                    Resume Improvement Suggestions
-                                                </h3>
-                                                <div className="space-y-6">
+                                            {/* Missing Skills */}
+                                            {feedback.missing_skills && feedback.missing_skills.length > 0 && (
+                                                <div className="mb-10">
+                                                    <h4 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-4 pl-1 border-l-2 border-primary">Critical Gaps</h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {feedback.missing_skills.map((skill: string, idx: number) => (
+                                                            <span key={idx} className="px-3 py-1 bg-secondary text-foreground text-sm rounded-full border border-border/50">
+                                                                {skill}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* Improvements Grid */}
+                                            {feedback.suggestions && feedback.suggestions.length > 0 && (
+                                                <div className="grid grid-cols-1 gap-6">
+                                                     <h4 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-2 pl-1 border-l-2 border-primary">Refinements</h4>
                                                     {feedback.suggestions.map((suggestion: any, idx: number) => (
-                                                        <div key={idx} className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border border-green-200 dark:border-green-900/50 rounded-xl p-5">
-                                                            <div className="flex items-start gap-3 mb-3">
-                                                                <div className="flex-shrink-0 w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                                                                    {idx + 1}
+                                                        <div key={idx} className="p-6 bg-secondary/20 rounded-2xl border border-border/50 hover:border-primary/20 transition-all">
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                                                                <div className="space-y-1">
+                                                                     <span className="text-xs font-semibold text-red-500/80 uppercase tracking-wide">Current</span>
+                                                                     <p className="text-sm text-foreground/70 font-light italic">"{suggestion.before}"</p>
                                                                 </div>
-                                                                <div className="flex-1">
-                                                                    <div className="mb-4">
-                                                                        <p className="text-xs font-semibold text-red-600 dark:text-red-400 mb-1 uppercase tracking-wide">Before</p>
-                                                                        <p className="text-sm text-foreground/70 leading-relaxed">{suggestion.before}</p>
-                                                                    </div>
-                                                                    <div className="mb-4">
-                                                                        <p className="text-xs font-semibold text-green-600 dark:text-green-400 mb-1 uppercase tracking-wide">After</p>
-                                                                        <p className="text-sm text-foreground font-medium leading-relaxed">{suggestion.after}</p>
-                                                                    </div>
-                                                                    <div className="pt-3 border-t border-green-200 dark:border-green-900/50">
-                                                                        <p className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wide">Why This Matters</p>
-                                                                        <p className="text-sm text-foreground/70 leading-relaxed">{suggestion.reason}</p>
-                                                                    </div>
+                                                                <div className="space-y-1">
+                                                                     <span className="text-xs font-semibold text-primary uppercase tracking-wide">Optimization</span>
+                                                                     <p className="text-sm text-foreground font-medium">"{suggestion.after}"</p>
                                                                 </div>
+                                                            </div>
+                                                            <div className="mt-4 pt-4 border-t border-border/50">
+                                                                <p className="text-xs text-muted-foreground">Recall: {suggestion.reason}</p>
                                                             </div>
                                                         </div>
                                                     ))}
                                                 </div>
-                                            </div>
-                                        )}
+                                            )}
+                                        </div>
                                     </div>
                                 );
                             })() : null
                         )}
 
-                        {/* Learning Path Section */}
-                        {activeTab === 'roadmap' && (
+                         {activeTab === 'roadmap' && (
                             loadingRoadmap ? (
-                                <div className="flex flex-col items-center justify-center py-20">
-                                    <div className="w-16 h-16 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-6"></div>
-                                    <h3 className="text-xl font-semibold text-foreground">Generating Roadmap...</h3>
-                                    <p className="text-muted-foreground mt-2">Charting your personalized learning path</p>
+                                <div className="text-center py-24">
+                                    <div className="inline-block animate-bounce text-primary mb-4 text-2xl">↓</div>
+                                    <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest">Architecting Path...</p>
                                 </div>
                             ) : roadmapData ? (() => {
                                 let learningPath;
-                                // Handle both { learning_path: ... } wrapper and direct response
                                 const rawData = roadmapData.learning_path || roadmapData;
-
                                 try {
                                     if (typeof rawData === 'string') {
                                         learningPath = extractJson(rawData);
@@ -692,165 +620,83 @@ export default function MatchPage() {
                                         learningPath = rawData;
                                     }
                                 } catch (e) {
-                                    console.error("Failed to parse learning_path:", e);
-                                    return <div className="text-center py-12 text-red-500">Failed to parse roadmap data.</div>;
+                                    return <div className="text-center py-12 text-muted-foreground">Roadmap Unavailable.</div>;
                                 }
 
-                                // Get roadmap data - check for roadmap, phases, or treat as array
                                 const roadmapItems = learningPath.roadmap || learningPath.phases || (Array.isArray(learningPath) ? learningPath : null);
-                                const skillGaps = learningPath.skill_gaps || learningPath.missing_skills || [];
-
-                                if (!roadmapItems || roadmapItems.length === 0) {
-                                    return <div className="text-center py-12 text-muted-foreground">No roadmap items found.</div>;
-                                }
+                                
+                                if (!roadmapItems || roadmapItems.length === 0) return <div className="text-center py-12 text-muted-foreground">No data.</div>;
 
                                 return (
-                                    <div className="mt-8 p-8 bg-card border border-border rounded-2xl shadow-lg">
-                                        <div className="flex items-center gap-3 mb-6">
-                                            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                                                <span className="text-white text-xl">🎯</span>
-                                            </div>
-                                            <div>
-                                                <h2 className="text-2xl font-bold text-foreground">AI Learning Roadmap</h2>
-                                                <p className="text-sm text-muted-foreground">Your personalized path to career advancement</p>
-                                            </div>
-                                        </div>
-
-                                        {/* Skill Gaps Section */}
-                                        {skillGaps.length > 0 && (
-                                            <div className="mb-8 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 border border-orange-200 dark:border-orange-900/50 rounded-xl p-5">
-                                                <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                                                    <span className="text-orange-500">🎓</span>
-                                                    Skills to Develop
-                                                </h3>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {skillGaps.map((skill: string, idx: number) => (
-                                                        <span key={idx} className="px-3 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-lg text-sm font-medium">
-                                                            {skill}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {/* Roadmap Section */}
-                                        <div className="space-y-6">
-                                            {roadmapItems.map((item: any, idx: number) => {
-                                                const dayLabel = item.day ? `Day ${item.day}` : item.phase_name || item.name || item.title || `Step ${idx + 1}`;
-                                                const goal = item.goal || item.description;
-                                                const learningItems = item.what_to_learn || item.skills || [];
-                                                const task = item.mini_task || item.task;
-                                                const duration = item.duration;
-                                                const resources = item.resources || [];
-
-                                                return (
-                                                    <div key={idx} className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 border border-blue-200 dark:border-blue-900/50 rounded-xl p-6">
-                                                        <div className="flex items-start gap-4">
-                                                            <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
-                                                                {item.day || idx + 1}
-                                                            </div>
-                                                            <div className="flex-1">
-                                                                <div className="flex items-center justify-between mb-2">
-                                                                    <h3 className="text-lg font-bold text-foreground">{dayLabel}</h3>
-                                                                    {duration && (
-                                                                        <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                                                            <span>⏱️</span>
-                                                                            {duration}
-                                                                        </span>
-                                                                    )}
-                                                                </div>
-
-                                                                {goal && (
-                                                                    <p className="text-sm text-foreground/90 font-medium mb-4">{goal}</p>
-                                                                )}
-
-                                                                {learningItems.length > 0 && (
-                                                                    <div className="mb-4">
-                                                                        <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-wide">What to Learn</p>
-                                                                        <ul className="space-y-1.5">
-                                                                            {learningItems.map((item: string, itemIdx: number) => (
-                                                                                <li key={itemIdx} className="flex items-start gap-2 text-sm text-foreground/70">
-                                                                                    <span className="text-blue-600 dark:text-blue-400 mt-0.5">•</span>
-                                                                                    <span>{item}</span>
-                                                                                </li>
-                                                                            ))}
-                                                                        </ul>
-                                                                    </div>
-                                                                )}
-
-                                                                {task && (
-                                                                    <div className="pt-3 border-t border-blue-200 dark:border-blue-900/50">
-                                                                        <p className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 mb-1 uppercase tracking-wide">Mini Task</p>
-                                                                        <p className="text-sm text-foreground/80 leading-relaxed">{task}</p>
-                                                                    </div>
-                                                                )}
-
-                                                                {resources.length > 0 && (
-                                                                    <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-900/50">
-                                                                        <p className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 mb-2 uppercase tracking-wide">Recommended Resources</p>
-                                                                        <ul className="space-y-1">
-                                                                            {resources.map((resource: string, resIdx: number) => (
-                                                                                <li key={resIdx} className="flex items-start gap-2 text-sm text-foreground/70">
-                                                                                    <span className="text-cyan-600 dark:text-cyan-400 mt-0.5">•</span>
-                                                                                    <span>{resource}</span>
-                                                                                </li>
-                                                                            ))}
-                                                                        </ul>
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
+                                    <div className="max-w-3xl mx-auto space-y-12 animate-fade-in relative">
+                                        <div className="absolute left-8 top-8 bottom-8 w-px bg-border"></div>
+                                        
+                                        {roadmapItems.map((item: any, idx: number) => {
+                                             const dayLabel = item.day ? `Day ${item.day}` : item.phase_name || `Step ${idx + 1}`;
+                                              return (
+                                                <div key={idx} className="relative pl-20">
+                                                    <div className="absolute left-6 top-0 w-4 h-4 -ml-2 rounded-full border-2 border-primary bg-background z-10"></div>
+                                                    
+                                                    <div className="mb-6">
+                                                        <span className="text-xs font-mono text-primary uppercase tracking-wider mb-1 block">{dayLabel}</span>
+                                                        <h3 className="text-xl font-medium text-foreground mb-2">{item.goal || item.description}</h3>
+                                                        {item.duration && <span className="text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded">{item.duration}</span>}
                                                     </div>
-                                                );
-                                            })}
-                                        </div>
+
+                                                    <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+                                                        {(item.what_to_learn || item.skills) && (
+                                                             <div className="mb-4">
+                                                                <ul className="space-y-1">
+                                                                     {(item.what_to_learn || item.skills).map((k: string, i: number) => (
+                                                                         <li key={i} className="text-sm text-foreground/80 flex items-start gap-2">
+                                                                            <span className="text-primary mt-1.5 text-[0.6rem]">●</span> {k}
+                                                                         </li>
+                                                                     ))}
+                                                                </ul>
+                                                             </div>
+                                                        )}
+                                                        
+                                                        {(item.mini_task || item.task) && (
+                                                            <div className="mt-4 pt-4 border-t border-border/50">
+                                                                <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Action Item</p>
+                                                                <p className="text-sm font-medium text-foreground">{item.mini_task || item.task}</p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                              )
+                                        })}
                                     </div>
-                                );
+                                )
                             })() : (
-                                <div className="text-center py-20">
+                                <div className="text-center py-20 bg-secondary/20 rounded-3xl">
                                     <div className="mb-4">
-                                        <div className="w-16 h-16 bg-muted rounded-full mx-auto flex items-center justify-center">
-                                            <span className="text-2xl">🗺️</span>
-                                        </div>
+                                        <span className="text-2xl text-muted-foreground block mb-2">⚠</span>
+                                        <h3 className="text-lg font-medium">Generation Interrupted</h3>
                                     </div>
-                                    <h3 className="text-xl font-semibold text-foreground">Roadmap Not Ready</h3>
-                                    <p className="text-muted-foreground mt-2 max-w-md mx-auto">
-                                        The learning roadmap generation might have been interrupted.
-                                    </p>
                                     <button
                                         onClick={() => getRoadmap(resumeId!, currentJobId!).then(data => setRoadmapData(data)).catch(err => console.error(err))}
-                                        className="mt-6 px-6 py-2 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-all font-medium"
+                                        className="text-sm font-medium text-primary hover:text-primary/80 underline underline-offset-4"
                                     >
-                                        Try Generating Again
+                                        Retake Roadmap
                                     </button>
                                 </div>
                             )
                         )}
 
-                        {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                            <button
-                                onClick={() => {
-                                    setData(null);
-                                    setCurrentJobId(null);
-                                    setJobDescription("");
-                                }}
-                                className="px-6 py-3 bg-secondary text-secondary-foreground rounded-xl font-medium hover:bg-muted transition-all border border-border"
-                            >
-                                Analyze Different Role
-                            </button>
-                            <button
+
+                        <div className="flex justify-center pt-16">
+                             <button
                                 onClick={() => router.push("/chat?resume_id=" + resumeId)}
-                                className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-500 hover:to-purple-500 transition-all shadow-lg hover:shadow-xl"
-                            >
-                                Continue to AI Chat
-                            </button>
+                                className="px-8 py-3 bg-secondary text-foreground hover:bg-muted transition-colors rounded-full font-medium"
+                             >
+                                Start Chat Session →
+                             </button>
                         </div>
+
                     </div>
                 )}
             </div>
-
         </div>
-
     );
 }

@@ -3,74 +3,82 @@ import Navbar from "@/app/components/Navbar";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen relative overflow-x-hidden bg-background text-foreground transition-colors duration-300">
+    <div className="flex flex-col min-h-screen relative overflow-x-hidden bg-background text-foreground selection:bg-primary/20">
       <Navbar />
 
-      {/* Background Gradients */}
+      {/* Decorative Editorial Background Elements */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        {/* Top Left Greenish/Yellowish Blob */}
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-green-200/40 dark:bg-green-900/20 rounded-full mix-blend-multiply dark:mix-blend-normal filter blur-[80px] opacity-70 dark:opacity-30 animate-blob"></div>
-        {/* Top Right Pinkish/Reddish Blob */}
-        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-200/40 dark:bg-blue-900/20 rounded-full mix-blend-multiply dark:mix-blend-normal filter blur-[80px] opacity-70 dark:opacity-30 animate-blob animation-delay-2000"></div>
-        {/* Bottom Center */}
-        <div className="absolute bottom-[-20%] left-[20%] w-[600px] h-[600px] bg-indigo-200/40 dark:bg-indigo-900/20 rounded-full mix-blend-multiply dark:mix-blend-normal filter blur-[80px] opacity-70 dark:opacity-30 animate-blob animation-delay-4000"></div>
+         {/* Subtle organic shape - Top Right */}
+         <div className="absolute top-[-10%] right-[-5%] w-[60vw] h-[60vw] rounded-full border border-primary/5 opacity-50 blur-[80px]"></div>
+         <div className="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-secondary/30 blur-[100px]"></div>
+         
+         {/* Grid lines or architectural lines */}
+         <div className="absolute left-[10%] top-0 h-full w-[1px] bg-border/40 hidden lg:block"></div>
+         <div className="absolute right-[10%] top-0 h-full w-[1px] bg-border/40 hidden lg:block"></div>
       </div>
 
-      <main className="flex-1 flex flex-col pt-32 pb-12 px-6 relative z-10 w-full max-w-7xl mx-auto">
+      <main className="flex-1 flex flex-col pt-32 lg:pt-48 pb-20 px-6 relative z-10 w-full max-w-[1400px] mx-auto">
 
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
 
-          {/* Left Content */}
-          <div className="flex-1 text-center lg:text-left space-y-8 animate-in fade-in slide-in-from-left-4 duration-1000">
-            {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/80 border border-border shadow-sm backdrop-blur-sm mb-4">
-              <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>
-              <span className="text-sm font-medium text-muted-foreground">AI-Powered Analysis</span>
+          {/* Left Content - Typography Focused */}
+          <div className="flex-1 text-center lg:text-left space-y-12 animate-fade-in pl-0 lg:pl-[5%]">
+            
+            {/* Editorial Tag */}
+            <div className="inline-flex items-center gap-3 px-3 py-1 border-b border-primary/30 mx-auto lg:mx-0 w-fit">
+              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-primary">Intelligence Suite</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-[800] tracking-tight text-foreground leading-[1.05] drop-shadow-sm">
-              Chat simply,<br />
-              <span className="text-indigo-600 dark:text-indigo-400">Understand fully.</span>
+            <h1 className="text-display font-medium text-foreground tracking-tight leading-[1]">
+              Refining Talent.<br />
+              <span className="text-muted-foreground">Redefining Careers.</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              The smartest way to prepare for interviews. Upload your resume and get instant feedback, salary insights, and tailored questions.
+            {/* Subtitle - Clean & Serif touch potentially or keep simple */}
+            <p className="text-lg md:text-xl text-foreground/70 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light">
+              Elevate your professional narrative with precision AI tools. <br className="hidden md:block"/>
+              Resume analysis, strategic matching, and interview preparation.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-8 flex-wrap">
-              <a href="#upload" className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:opacity-90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1">
-                Try for free &rarr;
+            {/* Buttons - Pill shaped, solid */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 pt-4">
+              <a href="/match" className="luxury-button bg-foreground text-background hover:bg-foreground/90 hover:scale-105 shadow-xl">
+                Start Analysis
               </a>
-              <a href="/match" className="px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white rounded-full font-semibold text-lg hover:opacity-90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1">
-                Match Job
+              
+               <a href="/interview" className="luxury-button bg-transparent border border-border text-foreground hover:bg-secondary transition-all">
+                Practice Session
               </a>
-              <a href="/interview" className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-semibold text-lg hover:opacity-90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1">
-                AI Interview
-              </a>
+            </div>
+            
+            <div className="pt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8 opacity-60">
+               <div className="text-xs uppercase tracking-widest text-muted-foreground border-t border-border pt-4 w-32 text-center lg:text-left">Trusted By</div>
+               <div className="flex gap-6 grayscale opacity-50">
+                   {/* Minimal Placeholders for Logos */}
+                   <div className="w-6 h-6 rounded-full bg-foreground/20"></div>
+                   <div className="w-6 h-6 rounded-full bg-foreground/20"></div>
+                   <div className="w-6 h-6 rounded-full bg-foreground/20"></div>
+               </div>
             </div>
           </div>
 
-          {/* Right Upload Box "Hero Image" */}
-          <div id="upload" className="flex-1 w-full max-w-xl lg:max-w-2xl relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
-            {/* Decorative backing layers */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 transform rotate-6 rounded-[2.5rem] opacity-60 blur-2xl"></div>
-            <div className="absolute -inset-4 bg-gradient-to-bl from-blue-50 to-green-50 dark:from-blue-900/10 dark:to-green-900/10 transform -rotate-3 rounded-[3rem] opacity-50 blur-3xl -z-10"></div>
-
-            {/* The Actual Box - Tilted slightly for effect */}
-            <div className="relative transform lg:rotate-2 hover:rotate-0 transition-transform duration-500 ease-out">
-              <div className="bg-card/80 backdrop-blur-xl border border-border shadow-[0_30px_60px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)] rounded-[2.5rem] p-4">
-                {/* Fake Browser window controls for aesthetic */}
-                <div className="flex items-center gap-2 px-4 py-2 border-b border-border/50 mb-2">
-                  <div className="w-3 h-3 rounded-full bg-red-400/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-400/80"></div>
+          {/* Right Content - Abstract / Modern */}
+          <div id="upload" className="flex-1 w-full max-w-lg relative animate-fade-in animation-delay-200">
+             {/* Asymmetrical backdrop */}
+            <div className="absolute -top-10 -right-10 w-full h-full bg-secondary rounded-[3rem] -z-10 transform rotate-3"></div>
+            
+            <div className="relative bg-card rounded-[2.5rem] p-2 shadow-2xl shadow-black/5 border border-border/50">
+                <div className="bg-background rounded-[2rem] overflow-hidden">
+                    <div className="flex items-center justify-between px-8 py-6 border-b border-border/30 bg-secondary/20">
+                       <span className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">System.Upload</span>
+                       <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                    </div>
+                     <div className="p-8">
+                         <UploadBox />
+                     </div>
                 </div>
-                <UploadBox />
-              </div>
-            </div>
+           </div>
           </div>
 
         </div>
@@ -79,3 +87,5 @@ export default function Home() {
     </div>
   );
 }
+
+          

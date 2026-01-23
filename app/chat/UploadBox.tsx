@@ -27,50 +27,47 @@ export default function UploadBox() {
         <div className="w-full">
             <label
                 className={`
-          relative flex flex-col items-center justify-center w-full h-80
-          rounded-3xl cursor-pointer 
-          transition-all duration-300 ease-out group
-          bg-white/50 dark:bg-white/5
-          ${loading
-                        ? "opacity-80 cursor-not-allowed"
-                        : "hover:bg-white/80 dark:hover:bg-white/10"
-                    }
+          relative flex flex-col items-center justify-center w-full min-h-[300px]
+          rounded-sm cursor-pointer 
+          transition-all duration-500 ease-out group
+          bg-background hover:bg-secondary/10
+          border border-dashed border-border/40 hover:border-primary/40
+          ${loading ? "opacity-90 cursor-wait" : ""}
         `}
             >
-                {/* Dashed Border Overlay */}
-                <div className={`absolute inset-0 m-4 rounded-[1.5rem] border-2 border-dashed transition-colors duration-300 ${loading ? 'border-slate-300 dark:border-slate-600' : 'border-slate-300 dark:border-slate-500 group-hover:border-slate-400 dark:group-hover:border-indigo-400 group-hover:bg-slate-50/50 dark:group-hover:bg-indigo-500/5'}`}></div>
-
-                <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-6 relative z-10">
+               
+                <div className="flex flex-col items-center justify-center pt-8 pb-8 text-center px-10 relative z-10 space-y-8">
                     {loading ? (
-                        <div className="flex flex-col items-center gap-6">
-                            <div className="relative w-20 h-20">
-                                <svg className="animate-spin w-full h-full text-slate-200 dark:text-slate-600" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                    <span className="text-2xl">⚡</span>
-                                </div>
+                        <div className="flex flex-col items-center gap-6 animate-fade-in">
+                            <div className="relative w-12 h-12">
+                                <div className="absolute inset-0 border-[1px] border-primary/20 rounded-full"></div>
+                                <div className="absolute inset-0 border-[1px] border-primary border-t-transparent rounded-full animate-spin"></div>
                             </div>
-                            <div className="space-y-1">
-                                <p className="text-lg font-semibold text-slate-700 dark:text-slate-200">Analyzing Resume...</p>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">This usually takes a few seconds</p>
+                            <div className="space-y-2">
+                                <p className="text-sm font-bold uppercase tracking-widest text-foreground">Analyzing Document</p>
+                                <p className="text-xs font-mono text-muted-foreground">Please wait...</p>
                             </div>
                         </div>
                     ) : (
                         <>
-                            <h3 className="mb-2 text-2xl text-slate-400 dark:text-slate-800 font-bold tracking-tight">
-                                Upload your Resume
-                            </h3>
-                            <p className="text-base text-slate-800 dark:text-slate-400 max-w-xs leading-relaxed mb-6">
-                                Drag and drop your PDF here, or click to browse.
-                            </p>
-                            <div className="px-6 py-3 bg-indigo-600 dark:bg-indigo-500 text-white text-base font-semibold rounded-xl shadow-lg shadow-indigo-200 dark:shadow-indigo-500/30 group-hover:bg-indigo-700 dark:group-hover:bg-indigo-400 group-hover:-translate-y-0.5 transition-all">
-                                Select PDF
+                            <div className="w-12 h-12 border border-foreground/10 text-foreground flex items-center justify-center mb-2 group-hover:bg-foreground group-hover:text-background transition-colors duration-500">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
                             </div>
-                            <p className="mt-6 text-xs text-slate-400 dark:text-slate-500 font-medium tracking-wide uppercase">
-                                FAST & PRIVATE
-                            </p>
+
+                            <div className="space-y-3">
+                                <h3 className="text-xl font-bold uppercase tracking-[0.2em] text-foreground">
+                                    Upload Resume
+                                </h3>
+                                <p className="text-sm text-muted-foreground max-w-[200px] mx-auto leading-relaxed">
+                                    PDF Format Only
+                                </p>
+                            </div>
+                            
+                            <div className="px-8 py-3 border border-foreground/20 text-foreground text-xs font-bold uppercase tracking-widest hover:bg-foreground hover:text-background transition-all duration-300">
+                                Select File
+                            </div>
                         </>
                     )}
                 </div>
@@ -82,9 +79,6 @@ export default function UploadBox() {
                     disabled={loading}
                 />
             </label>
-            {loading && (
-                <p className="text-center mt-4 text-sm text-muted-foreground animate-pulse">Analyzing document structure...</p>
-            )}
         </div>
     );
 }

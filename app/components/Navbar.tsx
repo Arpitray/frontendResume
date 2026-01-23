@@ -16,59 +16,41 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-background/60 border-b border-border/40 supports-[backdrop-filter]:bg-background/30 transition-colors duration-300">
+        <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-16 py-6 bg-background/90 backdrop-blur-md transition-all duration-300 border-b border-border/10">
+            {/* Logo Area */}
             <div className="flex items-center gap-2">
-                <Link href="/" className="text-xl font-bold tracking-tight flex items-center gap-2 text-foreground">
-                    <div className="w-8 h-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
+                <Link href="/" className="flex items-center gap-2 group">
+                    {/* Minimal Monogram */}
+                    <div className="w-8 h-8 flex items-center justify-center border border-primary text-primary text-xs font-semibold tracking-tighter hover:bg-primary hover:text-background transition-colors">
+                        AI
                     </div>
-                    <span>ResumeAI</span>
+                    <span className="text-sm font-semibold tracking-[0.25em] uppercase text-foreground">
+                        Resume
+                    </span>
                 </Link>
             </div>
 
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-                <Link href="/match" className="hover:text-foreground transition-colors">Match Job</Link>
-                <Link href="#" className="hover:text-foreground transition-colors">Features</Link>
-                <Link href="#" className="hover:text-foreground transition-colors">How it works</Link>
-                <Link href="#" className="hover:text-foreground transition-colors">Pricing</Link>
+            {/* Centered Navigation - Editorial Style */}
+            <div className="hidden md:flex items-center gap-10 text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/70">
+                <Link href="/match" className="hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5">Analysis</Link>
+                <Link href="/interview" className="hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5">Interview</Link>
+                <Link href="#" className="hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5">About</Link>
             </div>
 
-            <div className="flex items-center gap-3">
+            {/* Right Side Actions */}
+            <div className="flex items-center gap-6">
                 {mounted && (
                     <button
                         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                        className="p-2 rounded-full bg-secondary/80 hover:bg-secondary text-secondary-foreground transition-all"
-                        aria-label="Toggle Dark Mode"
+                        className="text-xs font-mono text-muted-foreground hover:text-foreground transition-all uppercase tracking-widest"
+                        aria-label="Toggle Theme"
                     >
-                        {theme === "dark" ? (
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                            </svg>
-                        ) : (
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                            </svg>
-                        )}
+                        {theme === "dark" ? "Light" : "Dark"}
                     </button>
                 )}
-
-                <Link
-                    href="https://github.com"
-                    target="_blank"
-                    className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground bg-secondary/50 hover:bg-secondary rounded-full transition-all"
-                >
-                    GitHub
+                 <Link href="/signin" className="hidden lg:block text-xs font-bold tracking-[0.15em] uppercase bg-foreground text-background px-5 py-2 hover:bg-foreground/80 transition-colors">
+                    Login
                 </Link>
-                {!isChat && (
-                    <Link
-                        href="#upload"
-                        className="px-5 py-2 text-sm font-semibold text-primary-foreground bg-primary rounded-full hover:opacity-90 transition-all shadow-lg shadow-primary/20"
-                    >
-                        Get Started
-                    </Link>
-                )}
             </div>
         </nav>
     );

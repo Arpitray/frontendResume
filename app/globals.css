@@ -1,97 +1,73 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  /* Modern sleek palette */
-  --background: #ffffff;
-  --foreground: #09090b;
+  /* Fashion Editorial - Light Mode */
+  --background: #FDFBF8; /* Cream / Eggshell */
+  --foreground: #121212; /* Deep Black, not pure #000 */
 
-  --card: #ffffff;
-  --card-foreground: #09090b;
+  --card: #FFFFFF;
+  --card-foreground: #121212;
 
-  --popover: #ffffff;
-  --popover-foreground: #09090b;
+  --popover: #FFFFFF;
+  --popover-foreground: #121212;
 
-  --primary: #18181b;
-  --primary-foreground: #fafafa;
+  /* Accent: Muted Caramel / Tan */
+  --primary: #A67C52; 
+  --primary-foreground: #FFFFFF;
 
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
+  /* Secondary: Soft Beige */
+  --secondary: #F4F1ED;
+  --secondary-foreground: #121212;
 
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
+  --muted: #EDEBE6;
+  --muted-foreground: #85807A; /* Warm Grey */
 
-  --accent: #f4f4f5;
-  --accent-foreground: #18181b;
+  --accent: #F4F1ED;
+  --accent-foreground: #A67C52;
 
-  --destructive: #ef4444;
+  --destructive: #cc3333;
   --destructive-foreground: #fafafa;
 
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #18181b;
+  --border: #E0DDD5; /* Warm Stone */
+  --input: #E0DDD5;
+  --ring: #A67C52;
 
-  --radius: 0.5rem;
-}
-
-@keyframes blob {
-  0% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-  100% { transform: translate(0px, 0px) scale(1); }
-}
-
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-.glass-morphism {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.dark .glass-morphism {
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  --radius: 0.75rem; /* Softened edges */
 }
 
 .dark {
-  --background: #09090b;
-  --foreground: #fafafa;
+  /* Fashion Editorial - Dark Mode */
+  --background: #141312; /* Warm Deep Charcoal */
+  --foreground: #F0EFEA; /* Cream Text */
 
-  --card: #09090b;
-  --card-foreground: #fafafa;
+  --card: #1E1D1B;
+  --card-foreground: #F0EFEA;
 
-  --popover: #09090b;
-  --popover-foreground: #fafafa;
+  --popover: #1E1D1B;
+  --popover-foreground: #F0EFEA;
 
-  --primary: #fafafa;
-  --primary-foreground: #18181b;
+  --primary: #D4B692; /* Lighter Tan/Gold */
+  --primary-foreground: #141312;
 
-  --secondary: #27272a;
-  --secondary-foreground: #fafafa;
+  --secondary: #2A2826;
+  --secondary-foreground: #F0EFEA;
 
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
+  --muted: #2A2826;
+  --muted-foreground: #A8A49D;
 
-  --accent: #27272a;
-  --accent-foreground: #fafafa;
+  --accent: #2A2826;
+  --accent-foreground: #D4B692;
 
-  --destructive: #7f1d1d;
+  --destructive: #993333;
   --destructive-foreground: #fafafa;
 
-  --border: #27272a;
-  --input: #27272a;
-  --ring: #d4d4d8;
+  --border: #33302D;
+  --input: #33302D;
+  --ring: #D4B692;
 }
 
 @theme inline {
@@ -99,6 +75,8 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -112,37 +90,91 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  --font-heading: var(--font-heading), sans-serif;
+  --font-body: var(--font-body), sans-serif;
 }
+
+/* Custom Editorial Utilities */
 
 body {
+  font-family: var(--font-body);
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar for Webkit */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em; /* Tight tracking for editorial feel */
+  font-weight: 500;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Smooth, luxurious scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--muted-foreground);
-  border-radius: 4px;
-  opacity: 0.2;
+  background-color: var(--border);
+  border-radius: 99px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--muted-foreground);
-  opacity: 0.5;
+
+/* Glass Effect - More Solid/Frosted */
+.editorial-glass {
+  background: rgba(253, 251, 248, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(224, 221, 213, 0.4);
+}
+.dark .editorial-glass {
+  background: rgba(30, 29, 27, 0.75);
+  border: 1px solid rgba(51, 48, 45, 0.4);
+}
+
+/* Typography Scale Override for Headers */
+.text-display {
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+/* Button & Card Hover Effects */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.luxury-button {
+    border-radius: 9999px;
+    padding: 1rem 2.5rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.3s ease;
 }
