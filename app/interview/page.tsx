@@ -222,22 +222,22 @@ export default function InterviewPage() {
 
         setTranscript("");
         setQuestion(data.next_question);
-        
+
         // Handle scores from backend
         if (data.scores) {
             setLatestFeedback(data.scores);
             // Calculate a composite score change - assuming scores are 1-10
             // Example: (Correctness + Clarity + Depth) / 3
             const avgScore = (
-                (data.scores.correctness || 0) + 
-                (data.scores.clarity || 0) + 
+                (data.scores.correctness || 0) +
+                (data.scores.clarity || 0) +
                 (data.scores.depth || 0)
             ) / 3;
-            
+
             // Add to total cumulative score
             setScore(s => s + Math.round(avgScore * 10)); // Scaling up for display
         } else if (data.score_delta) {
-             // Fallback for older backend version
+            // Fallback for older backend version
             const delta = Number(data.score_delta);
             if (!isNaN(delta)) {
                 setScore(s => s + delta);
@@ -275,7 +275,7 @@ export default function InterviewPage() {
             </div>
 
             <main className="flex-1 pt-32 pb-12 px-6 max-w-4xl mx-auto w-full relative z-10">
-                
+
                 <div className="text-center space-y-4 mb-12">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/80 border border-border shadow-sm backdrop-blur-sm">
                         <span className="flex h-2 w-2 rounded-full bg-purple-500 animate-pulse"></span>
@@ -299,7 +299,7 @@ export default function InterviewPage() {
                         </div>
                         <h2 className="text-2xl font-bold mb-3">Upload Resume</h2>
                         <p className="text-muted-foreground mb-8">Upload your PDF resume to start the personalized interview session.</p>
-                        
+
                         <label className="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium text-white transition duration-300 ease-out border-2 border-primary rounded-full shadow-md group cursor-pointer bg-primary">
                             <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-primary group-hover:translate-x-0 ease">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -344,7 +344,7 @@ export default function InterviewPage() {
                             value={jobDescription}
                             onChange={(e) => setJobDescription(e.target.value)}
                         />
-                        
+
                         <div className="flex justify-end">
                             <button
                                 onClick={handleJobUpload}
@@ -389,7 +389,7 @@ export default function InterviewPage() {
                                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.5)]"></div>
                                 <span className="font-medium text-sm text-foreground/80">Live Session</span>
                             </div>
-                            
+
                             <div className="flex items-center gap-6">
                                 {latestFeedback && (
                                     <div className="hidden md:flex items-center gap-4 text-sm border-r border-border pr-6 mr-2">
@@ -413,7 +413,7 @@ export default function InterviewPage() {
                                         </div>
                                     </div>
                                 )}
-                                
+
                                 <div className="flex items-center gap-2">
                                     <span className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">Total Score</span>
                                     <span className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
@@ -443,7 +443,7 @@ export default function InterviewPage() {
                                     className="w-full bg-transparent border-none p-0 text-lg text-foreground placeholder:text-muted-foreground/50 focus:ring-0 resize-none min-h-[120px] leading-relaxed"
                                 />
                             </div>
-                            
+
                             <div className="flex gap-3 p-3">
                                 <button
                                     onClick={toggleMic}

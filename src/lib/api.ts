@@ -103,14 +103,38 @@ export async function uploadJob(
 
 /* ---------------- MATCHING ---------------- */
 
-export async function matchResume(resumeId: string, jobId: string) {
-  const res = await fetch(
-    `${API_BASE}/match/${resumeId}/${jobId}`
-  );
+export async function matchResumeFast(resumeId: string, jobId: string) {
+  const res = await fetch(`${API_BASE}/match`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ resume_id: resumeId, job_id: jobId }),
+  });
 
   if (!res.ok) {
     throw new Error("Match request failed");
   }
 
+  return res.json();
+}
+
+export async function getAiCoach(resumeId: string, jobId: string) {
+  const res = await fetch(`${API_BASE}/match/coach`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ resume_id: resumeId, job_id: jobId }),
+  });
+
+  if (!res.ok) throw new Error("AI Coach request failed");
+  return res.json();
+}
+
+export async function getRoadmap(resumeId: string, jobId: string) {
+  const res = await fetch(`${API_BASE}/match/roadmap`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ resume_id: resumeId, job_id: jobId }),
+  });
+
+  if (!res.ok) throw new Error("Roadmap request failed");
   return res.json();
 }
