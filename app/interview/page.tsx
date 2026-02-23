@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { uploadJob } from "@/src/lib/api";
 import Navbar from "@/app/components/Navbar";
-
+import { useAuthStore } from "../../src/store/authStore";
+import AuthGuard from "@/app/components/AuthGuard";
 const API = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000";
 
 export default function InterviewPage() {
@@ -24,6 +25,7 @@ export default function InterviewPage() {
 
     const recognitionRef = useRef<any>(null);
     const transcriptRef = useRef(""); // To access latest transcript in closures
+    const { accessToken } = useAuthStore();
 
     // Sync ref with state
     useEffect(() => {
@@ -114,7 +116,11 @@ export default function InterviewPage() {
 
         const res = await fetch(`${API}/upload-resume`, {
             method: "POST",
-            body: formData
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                // ✅ Do NOT set Content-Type — browser sets multipart/form-data + boundary
+            },
+            body: formData,
         });
 
         const data = await res.json();
@@ -127,7 +133,7 @@ export default function InterviewPage() {
         if (!jobDescription.trim()) return;
         setUploadingJob(true);
         try {
-            const data = await uploadJob(jobDescription);
+            const data = await uploadJob(jobDescription, accessToken!);
             setJobId(data.job_id);
         } catch (err) {
             console.error(err);
@@ -158,7 +164,10 @@ export default function InterviewPage() {
         try {
             const res = await fetch(`${API}/interview/start`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
                 body: JSON.stringify({
                     resume_id: resumeId,
                     job_id: jobId
@@ -201,7 +210,10 @@ export default function InterviewPage() {
 
         const res = await fetch(`${API}/interview/answer`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
             body: JSON.stringify({
                 session_id: sessionId,
                 question,
@@ -265,10 +277,11 @@ export default function InterviewPage() {
     // ---------------- UI ----------------
 
     return (
-        <div className="flex flex-col min-h-screen relative overflow-x-hidden bg-background text-foreground transition-colors duration-300">
-            <Navbar />
+        <AuthGuard>
+            <div className="flex flex-col min-h-screen relative overflow-x-hidden bg-background text-foreground transition-colors duration-300">
+                <Navbar />
 
-            {/* Editorial Background - Clean Paper-like */}
+                {/* Editorial Background - Clean Paper-like */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none bg-background">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[150px] opacity-40"></div>
                 {/* Thin architectural line */}
@@ -485,5 +498,6 @@ export default function InterviewPage() {
                 )}
             </main>
         </div>
+        </AuthGuard>
     );
 }

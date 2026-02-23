@@ -5,6 +5,7 @@ import ChatWindow from "./ChatWindow";
 import Navbar from "@/app/components/Navbar";
 import { Suspense } from "react";
 import Link from "next/link";
+import AuthGuard from "@/app/components/AuthGuard";
 
 function ChatContent() {
     const params = useSearchParams();
@@ -34,13 +35,15 @@ function ChatContent() {
 
 export default function ChatPage() {
     return (
-        <div className="min-h-screen bg-background flex flex-col">
-            <Navbar />
-            <main className="flex-1 flex flex-col pt-24 max-w-7xl mx-auto w-full px-4 lg:px-8">
-                <Suspense fallback={<div className="flex items-center justify-center h-full text-xs font-bold uppercase tracking-widest text-muted-foreground">Loading System...</div>}>
-                    <ChatContent />
-                </Suspense>
-            </main>
-        </div>
+        <AuthGuard>
+            <div className="min-h-screen bg-background flex flex-col">
+                <Navbar />
+                <main className="flex-1 flex flex-col pt-24 pb-8 max-w-7xl mx-auto w-full px-4 lg:px-8">
+                    <Suspense fallback={<div className="flex items-center justify-center h-full text-xs font-bold uppercase tracking-widest text-muted-foreground">Loading System...</div>}>
+                        <ChatContent />
+                    </Suspense>
+                </main>
+            </div>
+        </AuthGuard>
     );
 }

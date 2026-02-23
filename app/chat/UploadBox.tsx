@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { uploadResume } from "@/src/lib/api";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/src/store/appStore";
+import { useAuthStore } from "../../src/store/authStore";
 
 export default function UploadBox() {
     const [loading, setLoading] = useState(false);
@@ -11,6 +12,7 @@ export default function UploadBox() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
     const setResumeId = useAppStore(s => s.setResumeId);
+    const { user, accessToken } = useAuthStore();
 
     // Prevent body scroll when modal is open
     useEffect(() => {
@@ -29,7 +31,7 @@ export default function UploadBox() {
         setLoading(true);
         setShowModal(false);
         try {
-            const result = await uploadResume(e.target.files[0]);
+            const result = await uploadResume(e.target.files[0], accessToken!);
             setResumeId(result.stored_as!);
             router.push(`/chat?resume_id=${result.stored_as}`);
         } catch (err) {
@@ -41,6 +43,13 @@ export default function UploadBox() {
     const inputId = "resume-file-upload";
 
     function handleLabelClick(e: React.MouseEvent) {
+        // Intercept clicks if user is not authorized
+        if (!user) {
+            e.preventDefault();
+            router.push("/signup");
+            return;
+        }
+
         // Check if it's a mobile device
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
 

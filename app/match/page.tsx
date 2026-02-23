@@ -5,7 +5,8 @@ import { matchResumeFast, getAiCoach, getRoadmap, uploadJob, uploadResume } from
 import { useAppStore } from "@/src/store/appStore";
 import { useRouter } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
-
+import { useAuthStore } from "../../src/store/authStore";
+import AuthGuard from "@/app/components/AuthGuard";
 // Helper to clean bad control characters from JSON strings
 function cleanJsonString(str: string): string {
     let result = '';
@@ -155,6 +156,7 @@ export default function MatchPage() {
     const setResumeId = useAppStore(s => s.setResumeId);
     const setJobId = useAppStore(s => s.setJobId);
     const router = useRouter();
+    const { accessToken } = useAuthStore();
 
     const [jobDescription, setJobDescription] = useState("");
     const [uploadingJob, setUploadingJob] = useState(false);
@@ -175,7 +177,7 @@ export default function MatchPage() {
         if (!e.target.files?.[0]) return;
         setUploadingResume(true);
         try {
-            const result = await uploadResume(e.target.files[0]);
+            const result = await uploadResume(e.target.files[0], accessToken!);
             setResumeId(result.stored_as!);
         } catch (err) {
             console.error(err);
@@ -193,7 +195,7 @@ export default function MatchPage() {
 
         setUploadingJob(true);
         try {
-            const result = await uploadJob(jobDescription);
+            const result = await uploadJob(jobDescription, accessToken!);
             setCurrentJobId(result.job_id);
             setJobId(result.job_id);
         } catch (err) {
@@ -225,7 +227,7 @@ export default function MatchPage() {
 
         try {
             // 1. Critical Path: Fast Match associated with visualization
-            const result = await matchResumeFast(resumeId, currentJobId);
+            const result = await matchResumeFast(resumeId, currentJobId, accessToken!);
             setData(result);
             setLoading(false); // Immediate UI update
 
@@ -244,7 +246,7 @@ export default function MatchPage() {
         // Coach
         if (!coachData && !loadingCoach) {
             setLoadingCoach(true);
-            getAiCoach(rId, jId)
+            getAiCoach(rId, jId, accessToken!)
                 .then(res => setCoachData(res))
                 .catch(err => console.error("Background Coach Fetch Error:", err))
                 .finally(() => setLoadingCoach(false));
@@ -253,7 +255,7 @@ export default function MatchPage() {
         // Roadmap
         if (!roadmapData && !loadingRoadmap) {
             setLoadingRoadmap(true);
-            getRoadmap(rId, jId)
+            getRoadmap(rId, jId, accessToken!)
                 .then(res => setRoadmapData(res))
                 .catch(err => console.error("Background Roadmap Fetch Error:", err))
                 .finally(() => setLoadingRoadmap(false));
@@ -273,9 +275,10 @@ export default function MatchPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background text-foreground pt-32 pb-20">
-            <Navbar />
-            <div className="max-w-5xl mx-auto px-6">
+        <AuthGuard>
+            <div className="min-h-screen bg-background text-foreground pt-32 pb-20">
+                <Navbar />
+                <div className="max-w-5xl mx-auto px-6">
 
                 {/* Header Section - Editorial */}
                 <div className="flex flex-col items-center text-center mb-20 space-y-8 animate-fade-in relative z-10">
@@ -675,7 +678,7 @@ export default function MatchPage() {
                                         <h3 className="text-lg font-medium">Generation Interrupted</h3>
                                     </div>
                                     <button
-                                        onClick={() => getRoadmap(resumeId!, currentJobId!).then(data => setRoadmapData(data)).catch(err => console.error(err))}
+                                        onClick={() => getRoadmap(resumeId!, currentJobId!, accessToken!).then(data => setRoadmapData(data)).catch(err => console.error(err))}
                                         className="text-sm font-medium text-primary hover:text-primary/80 underline underline-offset-4"
                                     >
                                         Retake Roadmap
@@ -698,5 +701,6 @@ export default function MatchPage() {
                 )}
             </div>
         </div>
+        </AuthGuard>
     );
 }
