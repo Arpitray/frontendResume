@@ -3,6 +3,9 @@ import { DM_Sans, Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeProvider";
 import AuthInitializer from "./components/AuthInitializer";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
 const dmSans = DM_Sans({
   variable: "--font-heading",
@@ -37,8 +40,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthInitializer />
-          {children}
+          <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            <AuthInitializer />
+            {children}
+          </GoogleOAuthProvider>
         </ThemeProvider>
       </body>
     </html>

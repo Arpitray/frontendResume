@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import { useAuthStore } from "../../src/store/authStore";
+import GoogleLoginButton from "../components/GoogleLoginButton";
+import GitHubLoginButton from "../components/GitHubLoginButton";
 
 function validatePassword(pw: string): string | null {
   if (pw.length < 8) return "Password must be at least 8 characters.";
@@ -57,6 +59,19 @@ export default function SignUpPage() {
               <p className="text-xs font-medium tracking-widest text-muted-foreground uppercase">
                 Begin your journey
               </p>
+            </div>
+
+            {/* OAuth buttons */}
+            <div className="flex flex-col gap-3 mb-6">
+              <GoogleLoginButton redirectTo="/" />
+              <GitHubLoginButton redirectTo="/" />
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="h-px flex-1 bg-border/40" />
+              <span className="text-xs text-muted-foreground uppercase tracking-widest">or</span>
+              <span className="h-px flex-1 bg-border/40" />
             </div>
 
             {error && (

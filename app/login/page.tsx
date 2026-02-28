@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import { useAuthStore } from "../../src/store/authStore";
+import GoogleLoginButton from "../components/GoogleLoginButton";
+import GitHubLoginButton from "../components/GitHubLoginButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -43,6 +45,19 @@ export default function LoginPage() {
               <p className="text-xs font-medium tracking-widest text-muted-foreground uppercase">
                 Access your dashboard
               </p>
+            </div>
+
+            {/* OAuth buttons */}
+            <div className="flex flex-col gap-3 mb-6">
+              <GoogleLoginButton redirectTo="/" />
+              <GitHubLoginButton redirectTo="/" />
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="h-px flex-1 bg-border/40" />
+              <span className="text-xs text-muted-foreground uppercase tracking-widest">or</span>
+              <span className="h-px flex-1 bg-border/40" />
             </div>
 
             {error && (
