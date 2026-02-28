@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import { useAuthStore } from "../../src/store/authStore";
 import GoogleLoginButton from "../components/GoogleLoginButton";
-import GitHubLoginButton from "../components/GitHubLoginButton";
 
 function validatePassword(pw: string): string | null {
   if (pw.length < 8) return "Password must be at least 8 characters.";
@@ -64,7 +63,6 @@ export default function SignUpPage() {
             {/* OAuth buttons */}
             <div className="flex flex-col gap-3 mb-6">
               <GoogleLoginButton redirectTo="/" />
-              <GitHubLoginButton redirectTo="/" />
             </div>
 
             {/* Divider */}

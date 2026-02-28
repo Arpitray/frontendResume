@@ -40,10 +40,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-            <AuthInitializer />
-            {children}
-          </GoogleOAuthProvider>
+          {GOOGLE_CLIENT_ID ? (
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+              <AuthInitializer />
+              {children}
+            </GoogleOAuthProvider>
+          ) : (
+            <>
+              <AuthInitializer />
+              {children}
+            </>
+          )}
         </ThemeProvider>
       </body>
     </html>

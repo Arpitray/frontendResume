@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import { useAuthStore } from "../../src/store/authStore";
 import GoogleLoginButton from "../components/GoogleLoginButton";
-import GitHubLoginButton from "../components/GitHubLoginButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -50,7 +49,6 @@ export default function LoginPage() {
             {/* OAuth buttons */}
             <div className="flex flex-col gap-3 mb-6">
               <GoogleLoginButton redirectTo="/" />
-              <GitHubLoginButton redirectTo="/" />
             </div>
 
             {/* Divider */}

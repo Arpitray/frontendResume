@@ -179,24 +179,6 @@ export async function googleOAuth(idToken: string): Promise<AuthResponse> {
   return res.json();
 }
 
-export async function githubOAuth(code: string): Promise<AuthResponse> {
-  const res = await fetch(`${API_BASE}/auth/oauth/github`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ code }),
-  });
-
-  if (!res.ok) {
-    const data = await res.json().catch(() => null);
-    const status = res.status;
-    if (status === 400) throw new Error("Sign-in failed. The authorization code may have expired. Please try again.");
-    if (status === 403) throw new Error("Account deactivated. Contact support.");
-    if (status === 501) throw new Error("This sign-in method is not available right now.");
-    throw new Error(data?.detail ?? "GitHub sign-in failed.");
-  }
-
-  return res.json();
-}
 
 /* ---------------- RESUME ---------------- */
 

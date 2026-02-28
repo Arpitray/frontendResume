@@ -7,7 +7,6 @@ import {
   logoutUser,
   getMe,
   googleOAuth,
-  githubOAuth,
   User,
 } from "../lib/api";
 
@@ -37,9 +36,6 @@ interface AuthState {
 
   /** Sign in with a Google id_token obtained from @react-oauth/google. */
   loginWithGoogle: (idToken: string) => Promise<void>;
-
-  /** Sign in with a GitHub authorization code from the OAuth callback. */
-  loginWithGithub: (code: string) => Promise<void>;
 
   /** Log out — blacklists token on server and clears local state. */
   logout: () => Promise<void>;
@@ -128,19 +124,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ isLoading: true });
     try {
       const data = await googleOAuth(idToken);
-      persistRefreshToken(data.refresh_token);
-      set({ user: data.user, accessToken: data.access_token, isLoading: false });
-    } catch (err) {
-      set({ isLoading: false });
-      throw err;
-    }
-  },
-
-  /* ---------------------------------------------------------------- */
-  loginWithGithub: async (code) => {
-    set({ isLoading: true });
-    try {
-      const data = await githubOAuth(code);
       persistRefreshToken(data.refresh_token);
       set({ user: data.user, accessToken: data.access_token, isLoading: false });
     } catch (err) {
